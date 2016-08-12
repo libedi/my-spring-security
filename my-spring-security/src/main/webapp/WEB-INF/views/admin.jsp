@@ -9,6 +9,7 @@
 <body>
 Admin Page<br/>
 <sec:authentication property="principal.username"/>님 안녕하세요.<br/>
+<sec:authentication property="principal.nick"/>님 안녕하세요.<br/>
 <sec:authorize access="isAnonymous()">
 로그아웃 상태입니다.
 </sec:authorize>

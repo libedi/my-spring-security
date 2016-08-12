@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  * Spring Security Configuration
@@ -19,7 +20,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
-	private DataSource dataSource;
+	private DataSource dataSource;		// JDBC 로그인을 위한 dataSource
+	
+	@Autowired
+	private UserDetailsService userDetailsService;
 
 	/**
 	 * Authentication Configuration
@@ -29,10 +33,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// 1. In-Memory login configuration
 //		auth.inMemoryAuthentication().withUser("admin").password("1234").roles("ADMIN");
 		
-		// 2. Database login configuration
-		auth.jdbcAuthentication()
-			.dataSource(dataSource)
-			.rolePrefix("");		// ROLE_ prefix를 초기화
+		// 2. JDBC login configuration
+//		auth.jdbcAuthentication()
+//			.dataSource(dataSource)
+//			.rolePrefix("");		// ROLE_ prefix를 초기화
+		
+		// 3. Customizing login configuration
+		auth.userDetailsService(userDetailsService);
 	}
 
 	/**
@@ -45,6 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/admin/**")
 					.hasAuthority("ADMIN")
 //					.hasRole("ADMIN")		// DB에서 ROLE_ prefix를 삭제하려면 hasRole() 대신에 hasAuthority()를 사용한다.
+				.antMatchers("/user/**").hasAnyAuthority("ADMIN", "USER")
 				.antMatchers("/**").permitAll()
 				.and()
 			.formLogin()
