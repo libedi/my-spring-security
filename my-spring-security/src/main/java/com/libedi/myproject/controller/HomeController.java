@@ -1,11 +1,15 @@
 package com.libedi.myproject.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.libedi.myproject.domain.Account;
+import com.libedi.myproject.service.HelloMessageService;
 
 /**
  * Home Controller
@@ -15,6 +19,8 @@ import com.libedi.myproject.domain.Account;
 @Controller
 public class HomeController {
 
+	@Autowired
+	private HelloMessageService helloMessageService;
 	/**
 	 * Index page
 	 * @return
@@ -52,4 +58,11 @@ public class HomeController {
 	
 	@RequestMapping(value = "/403")
 	public void accessDenied(){}
+	
+	@GetMapping(value = "/message")
+	@ResponseBody
+	public String getMessage(){
+		return this.helloMessageService.getMessage();
+	}
+	
 }
