@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
@@ -47,7 +49,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //			.rolePrefix("");		// ROLE_ prefix를 초기화
 		
 		// 3. Customizing login configuration
-		auth.userDetailsService(userDetailsService);
+		auth.userDetailsService(userDetailsService)
+			.passwordEncoder(this.passwordEncoder());		// PasswordEncoder Configuration
 	}
 
 	/**
@@ -108,6 +111,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		jdbcTokenRepository.setCreateTableOnStartup(false);
 		jdbcTokenRepository.setDataSource(this.dataSource);
 		return jdbcTokenRepository;
+	}
+	
+	@Bean
+	public PasswordEncoder passwordEncoder(){
+		return new BCryptPasswordEncoder();
 	}
 	
 }

@@ -5,6 +5,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +24,9 @@ public class UserController {
 	
 	@Autowired
 	private AccountRepository accountRepository;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	/**
 	 * User page
@@ -43,6 +47,8 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(Account account){
+		// 패스워드 암호화
+		account.setPassword(this.passwordEncoder.encode(account.getPassword()));
 		// 회원정보 데이터베이스 저장
 		this.accountRepository.save(account);
 		
