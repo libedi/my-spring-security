@@ -48,5 +48,9 @@ public class Account {
 	public void setNick(String nick) {
 		this.nick = nick;
 	}
-	
+	@Override
+	public String toString() {
+		return "Account [id=" + id + ", userId=" + userId + ", password=" + password + ", role=" + role + ", nick="
+				+ nick + "]";
+	}
 }

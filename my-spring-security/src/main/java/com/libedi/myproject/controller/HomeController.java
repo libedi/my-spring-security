@@ -49,4 +49,7 @@ public class HomeController {
 		model.addAttribute("msg", "당신은 유저권한입니다.");
 		return "authorizedMessage";
 	}
+	
+	@RequestMapping(value = "/403")
+	public void accessDenied(){}
 }

@@ -72,7 +72,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.rememberMe()
 //				.key("rememberKey").rememberMeParameter("rememberMeParameter")		// 1. Default Remember-Me Configuration : TokenBasedRememberMeServices
 //				.key(this.REMEMBER_ME_KEY).rememberMeServices(this.tokenBasedRememberMeServices())		// 2. Custom Remember-Me Configuration : Cookie Type
-				.key(this.REMEMBER_ME_KEY).rememberMeServices(this.persistentTokenBasedRememberMeServices())	// 3. Custom Remember-Me Configuration : Persistence Type 
+				.key(this.REMEMBER_ME_KEY).rememberMeServices(this.persistentTokenBasedRememberMeServices())	// 3. Custom Remember-Me Configuration : Persistence Type
+				.and()
+			.exceptionHandling().accessDeniedPage("/403")		// 403 Page configuration
 				;
 	}
 	

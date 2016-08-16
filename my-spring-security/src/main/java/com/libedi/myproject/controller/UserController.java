@@ -7,6 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -58,5 +59,11 @@ public class UserController {
 				new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "/userInformation")
+	public String userInformation(Model model){
+		model.addAttribute("user", this.accountRepository.findMe());
+		return "userInformation";
 	}
 }
