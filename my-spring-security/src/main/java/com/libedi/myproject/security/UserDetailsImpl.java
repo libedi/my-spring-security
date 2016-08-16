@@ -22,6 +22,7 @@ public class UserDetailsImpl extends User {
 	private static final long serialVersionUID = 3078247060946311092L;
 	
 	private String nick;
+	private String role;
 
 	public String getNick() {
 		return nick;
@@ -30,10 +31,19 @@ public class UserDetailsImpl extends User {
 	public void setNick(String nick) {
 		this.nick = nick;
 	}
+	
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
 
 	public UserDetailsImpl(Account account){
 		super(account.getUserId(), account.getPassword(), authorities(account));
 		this.setNick(account.getNick());
+		this.setRole(account.getRole());
 	}
 
 	private static Collection<? extends GrantedAuthority> authorities(Account account) {

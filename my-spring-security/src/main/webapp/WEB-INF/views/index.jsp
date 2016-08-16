@@ -10,6 +10,7 @@
 Welcome to Spring Security!<br/>
 <a href="/admin">어드민 페이지로 이동</a><br/>
 <a href="/user">유저 페이지로 이동</a><br/>
+<a href="/registerForm">회원가입 페이지로 이동</a><br/>
 <sec:authorize access="isAnonymous()">
 로그아웃 상태입니다.
 </sec:authorize>
