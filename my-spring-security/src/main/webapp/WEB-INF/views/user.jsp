@@ -10,5 +10,11 @@
 User Page<br/>
 <sec:authentication property="principal.username"/>님 안녕하세요.<br/>
 <sec:authentication property="principal.nick"/>님 안녕하세요.<br/>
+<br/>
+<form action="/logout" method="post">
+<%-- 	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/> --%>
+	<sec:csrfInput/>
+	<button type="submit">Logout</button>
+</form>
 </body>
 </html>
