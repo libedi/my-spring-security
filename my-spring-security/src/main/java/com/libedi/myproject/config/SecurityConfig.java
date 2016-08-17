@@ -70,6 +70,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.formLogin()
 				.loginPage("/login").permitAll()
 				.and()
+			.logout()
+				.logoutUrl("/logout")
+				.logoutSuccessUrl("/")
+				.and()
 			.rememberMe()
 //				.key("rememberKey").rememberMeParameter("rememberMeParameter")		// 1. Default Remember-Me Configuration : TokenBasedRememberMeServices
 //				.key(this.REMEMBER_ME_KEY).rememberMeServices(this.tokenBasedRememberMeServices())		// 2. Custom Remember-Me Configuration : Cookie Type
